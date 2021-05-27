@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DietController;
+use App\Http\Controllers\FoodController;
+use App\Http\Controllers\FoodIngredientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resources([
+    'diets' => DietController::class,
+    'foods' => FoodController::class,
+    'food-ingredients' => FoodIngredientController::class,
+]);
