@@ -9,6 +9,8 @@ class Diet extends Model
 {
     use HasFactory;
 
+    protected  $primaryKey = 'diet_id';
+
     public function Foods()
     {
         return $this->hasMany(Food::class);

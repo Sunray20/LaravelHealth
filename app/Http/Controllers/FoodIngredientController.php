@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FoodIngredient;
 use Illuminate\Http\Request;
+use App\Http\Requests\FoodIngredientRequest;
 
 class FoodIngredientController extends Controller
 {
@@ -13,7 +15,9 @@ class FoodIngredientController extends Controller
      */
     public function index()
     {
-        return view('foodIngredients.index');
+        $ingredients = FoodIngredient::all();
+
+        return view('foodIngredients.index', ['ingredients' => $ingredients]);
     }
 
     /**
@@ -23,7 +27,7 @@ class FoodIngredientController extends Controller
      */
     public function create()
     {
-        //
+        return view('foodIngredients.create');
     }
 
     /**
@@ -32,9 +36,25 @@ class FoodIngredientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FoodIngredientRequest $request)
     {
-        //
+        $request->validated();
+
+        $newImageName = time() . '-' . $request->name . $request->image->extension();
+        $request->image->move(public_path('images'), $newImageName);
+
+        $ingredient = FoodIngredient::create([
+            'ingredient_name' => $request->input('name'),
+            'ingredient_kcal' => $request->input('kcal'),
+            'ingredient_protein' => $request->input('protein'),
+            'ingredient_carb' => $request->input('carb'),
+            'ingredient_fat' => $request->input('fat'),
+            'ingredient_weight' => $request->input('weight'),
+            'ingredient_unit' => $request->input('unit'),
+            'ingredient_image_path' => $newImageName,
+        ]);
+
+        return redirect('/food-ingredients');
     }
 
     /**
@@ -45,7 +65,9 @@ class FoodIngredientController extends Controller
      */
     public function show($id)
     {
-        dd("asd");
+        $ingredient = FoodIngredient::find($id);
+
+        return view('foodIngredients.show', ['ingredient' => $ingredient]);
     }
 
     /**
@@ -56,7 +78,9 @@ class FoodIngredientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ingredient = FoodIngredient::find($id);
+
+        return view('foodIngredients.edit')->with('ingredient', $ingredient);
     }
 
     /**
@@ -66,9 +90,21 @@ class FoodIngredientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FoodIngredientRequest $request, $id)
     {
-        //
+        $request->validated();
+
+        $ingredient = FoodIngredient::find($id);
+
+        $ingredient = FoodIngredient::where('ingredient_id', $id)->update([
+            'ingredient_name' => $request->input('name'),
+            'ingredient_kcal' => $request->input('kcal'),
+            'ingredient_protein' => $request->input('protein'),
+            'ingredient_carb' => $request->input('carb'),
+            'ingredient_fat' => $request->input('fat'),
+        ]);
+
+        return redirect('/food-ingredients');
     }
 
     /**
@@ -79,6 +115,9 @@ class FoodIngredientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ingredient = FoodIngredient::find($id);
+        $ingredient->delete();
+
+        return redirect('/food-ingredients');
     }
 }
