@@ -20,6 +20,7 @@ class CreateFoodsTable extends Migration
             $table->string('food_name', 150);
             $table->string('food_prep_description', 150);
             $table->integer('food_prep_time');
+            $table->timestamps();
         });
     }
 

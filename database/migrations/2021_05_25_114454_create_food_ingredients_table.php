@@ -20,6 +20,7 @@ class CreateFoodIngredientsTable extends Migration
             $table->integer('ingredient_protein');
             $table->integer('ingredient_carb');
             $table->integer('ingredient_fat');
+            $table->timestamps();
         });
     }
 

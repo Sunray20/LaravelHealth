@@ -19,6 +19,7 @@ class CreateDietsTable extends Migration
             $table->foreign('diet_food_id')->references('food_id')->on('foods');
             $table->date('diet_date');
             $table->enum('diet_meal_type', ['breakfast', 'lunch', 'dinner', 'snack']);
+            $table->timestamps();
         });
     }
 
