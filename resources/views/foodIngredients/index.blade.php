@@ -1,21 +1,31 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 
 @section('content')
     <h2 style = "margin-top: 5rem;">Food ingredients</h2>
     <div class="row">
         <div class="card col-md-4">
-            <img src="..." class="card-img-top" alt="Add new ingredient">
+            <a href="{{ URL('food-ingredients/create') }}">
+                <i class="fas fa-plus-circle fa-10x h-50 mr-auto ml-auto" style="display: inline-block;
+                width: 100%;"></i>
+            </a>
+
             <div class="card-body">
-            <h5 class="card-title">Add new ingredient</h5>
-            <a href="{{ URL('food-ingredients/create') }}" class="btn btn-primary">Add</a>
+                <h5 class="card-title">Add new ingredient</h5>
             </div>
         </div>
 
         @forelse ($ingredients as $ingredient)
             <div class="card col-md-4">
-                <img src="{{ asset('images/' . $ingredient->ingredient_image_path) }}"
-                     class="card-img-top w-100 h-50"
-                     alt="{{ $ingredient->ingredient_name }}">
+                @if(!empty($ingredient->ingredient_image_path))
+                    <img src="{{ asset('images/' . $ingredient->ingredient_image_path) }}"
+                         class="card-img-top w-100 h-50 mt-2"
+                         alt="{{ $ingredient->ingredient_name }}">
+                @else
+                    <img src="{{ asset('images/missing-image.png') }}"
+                         class="card-img-top w-100 h-50 mt-2"
+                         alt="missing image">
+                @endif
+
                 <div class="card-body">
                     <h5 class="card-title">{{ $ingredient->ingredient_name }}</h5>
                     <p class="card-text">
