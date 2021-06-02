@@ -25,3 +25,5 @@ Route::resources([
     'foods' => FoodController::class,
     'food-ingredients' => FoodIngredientController::class,
 ]);
+
+Auth::routes();
