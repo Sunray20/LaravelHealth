@@ -3,19 +3,19 @@
 @section('content')
     <h2 style = "margin-top: 5rem;">Food ingredients</h2>
     <div class="row">
-        <div class="card col-md-4">
-            <a href="{{ URL('food-ingredients/create') }}">
-                <i class="fas fa-plus-circle fa-10x h-50 mr-auto ml-auto" style="display: inline-block;
-                width: 100%;"></i>
-            </a>
-
+        <div class="card col-md-3">
+            <div class="">
+                <a href="{{ URL('food-ingredients/create') }}">
+                    <i class="fas fa-plus-circle fa-10x h-50 mr-auto ml-auto"></i>
+                </a>
+            </div>
             <div class="card-body">
                 <h5 class="card-title">Add new ingredient</h5>
             </div>
         </div>
 
-        @forelse ($ingredients as $ingredient)
-            <div class="card col-md-4">
+        @foreach ($ingredients as $ingredient)
+            <div class="card col-md-3">
                 @if(!empty($ingredient->ingredient_image_path))
                     <img src="{{ asset('images/' . $ingredient->ingredient_image_path) }}"
                          class="card-img-top w-100 h-50 mt-2"
@@ -45,9 +45,6 @@
                     </form>
                 </div>
             </div>
-        @empty
-            <p>There are no ingredients yet! If you want to add, click here!</p>
-            <button>Add</button>
-        @endforelse
+        @endforeach
     </div>
 @endsection

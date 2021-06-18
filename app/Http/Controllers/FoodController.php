@@ -14,7 +14,9 @@ class FoodController extends Controller
      */
     public function index()
     {
-        return view('foods.index');
+        $foods = Food::all();
+
+        return view('foods.index', ['foods' => $foods]);
     }
 
     /**
@@ -24,7 +26,9 @@ class FoodController extends Controller
      */
     public function create()
     {
-        //
+        $foodIngredients = FoodIngredient::all();
+
+        return view('foods.create', ['ingredients' => $foodIngredients]);
     }
 
     /**
@@ -35,7 +39,7 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -44,9 +48,11 @@ class FoodController extends Controller
      * @param  \App\Models\Food  $food
      * @return \Illuminate\Http\Response
      */
-    public function show(Food $food)
+    public function show($id)
     {
-        //
+        $food = Food::find($id);
+
+        return view('food.show', ['food' => $food]);
     }
 
     /**
@@ -57,7 +63,9 @@ class FoodController extends Controller
      */
     public function edit(Food $food)
     {
-        //
+        $food = Food::find($id);
+
+        return view('food.show', ['food' => $food]);
     }
 
     /**
@@ -78,8 +86,11 @@ class FoodController extends Controller
      * @param  \App\Models\Food  $food
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Food $food)
+    public function destroy($id)
     {
-        //
+        $food = Food::find($id);
+        $food->delete();
+
+        return redirect('/foods');
     }
 }

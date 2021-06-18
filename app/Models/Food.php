@@ -9,15 +9,12 @@ class Food extends Model
 {
     use HasFactory;
 
-    protected  $primaryKey = 'food_id';
+    protected $primaryKey = 'food_id';
 
-    public function FoodIngredients()
-    {
-        return $this->hasMany(FoodIngredient::class);
-    }
+    protected $table = 'foods';
 
-    public function Diet()
+    public function foodIngredients()
     {
-        return $this->belongsTo(Diet::class);
+        return $this->belongsToMany(FoodIngredient::class, 'food_food_ingredient', 'food_id', 'ingredient_id');
     }
 }

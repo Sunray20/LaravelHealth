@@ -14,12 +14,11 @@ class CreateDietsTable extends Migration
     public function up()
     {
         Schema::create('diets', function (Blueprint $table) {
-            $table->increments('diet_id');
-            $table->unsignedInteger('diet_food_id');
-            $table->foreign('diet_food_id')->references('food_id')->on('foods');
-            $table->date('diet_date');
-            $table->enum('diet_meal_type', ['breakfast', 'lunch', 'dinner', 'snack']);
-            $table->timestamps();
+            $table->increments  ('diet_id');
+            $table->integer     ('diet_user_id');
+            $table->date        ('diet_date');
+            $table->enum        ('diet_meal_type', ['breakfast', 'lunch', 'dinner', 'snack']);
+            $table->timestamps  ();
         });
     }
 

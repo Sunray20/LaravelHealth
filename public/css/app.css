@@ -10828,3 +10828,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.form-label {
+  color: white;
+  font-weight: 500;
+}

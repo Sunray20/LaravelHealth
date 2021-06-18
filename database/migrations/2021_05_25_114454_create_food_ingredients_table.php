@@ -14,13 +14,16 @@ class CreateFoodIngredientsTable extends Migration
     public function up()
     {
         Schema::create('food_ingredients', function (Blueprint $table) {
-            $table->increments('ingredient_id');
-            $table->string('ingredient_name', 60);
-            $table->integer('ingredient_kcal');
-            $table->integer('ingredient_protein');
-            $table->integer('ingredient_carb');
-            $table->integer('ingredient_fat');
-            $table->timestamps();
+            $table->increments  ('ingredient_id');
+            $table->string      ('ingredient_name', 60);
+            $table->integer     ('ingredient_kcal');
+            $table->integer     ('ingredient_protein');
+            $table->integer     ('ingredient_carb');
+            $table->integer     ('ingredient_fat');
+            $table->integer     ('ingredient_weight');
+            $table->enum        ('ingredient_unit', ['g', 'oz', 'ml']);
+            $table->string      ('ingredient_image_path');
+            $table->timestamps  ();
         });
     }
 

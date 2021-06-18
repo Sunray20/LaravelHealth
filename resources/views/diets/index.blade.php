@@ -3,3 +3,4 @@
 @section('content')
 index of diets
 @endsection
+
